@@ -11,10 +11,11 @@ from fluid import Fluid
 
 if __name__ == '__main__':
 
-    fluid = Fluid(128, 0.002, diff = 0.0, visc = 0.0)
+    fluid = Fluid([128, 64], 0.002, diff = 0.0, visc = 0.0)
     # fluid = Fluid(128, 0.002, diff = 0.0001, visc = 0.000005)
 
-    cx = fluid.size//2
+    cx = fluid.size[1]//2
+    cy = fluid.size[0]//2
     q1x = cx//2
     q3x = cx + q1x
     w = 4
@@ -32,10 +33,10 @@ if __name__ == '__main__':
         # fluid.d[cx - w:cx + w, q3x - w: q3x + w] = 200 + 55*random()
         # fluid.v[cx - w:cx + w, q3x - w: q3x + w] = np.sin(np.array([-t, -t - 3.14/2]))*20.0
 
-        fluid.d[cx - w:cx + w, q1x - w: q1x + w] = 200 + 55*random()
-        fluid.v[cx - w:cx + w, q1x - w: q1x + w] = [0, 15*random()]
-        fluid.d[cx - w:cx + w, q3x - w: q3x + w] = 55*random()
-        fluid.v[cx - w:cx + w, q3x - w: q3x + w] = [0, -15*random()]
+        fluid.d[cy - w:cy + w, q1x - w: q1x + w] = 200 + 55*random()
+        fluid.v[cy - w:cy + w, q1x - w: q1x + w] = [0, 15*random()]
+        fluid.d[cy - w:cy + w, q3x - w: q3x + w] = 55*random()
+        fluid.v[cy - w:cy + w, q3x - w: q3x + w] = [0, -15*random()]
 
         fluid.step()
 
@@ -43,7 +44,7 @@ if __name__ == '__main__':
 
         t += random()*0.03
 
-        cv2.imshow('dye', cv2.pyrUp(fluid.d.astype('uint8')))
+        cv2.imshow('dye', cv2.pyrUp(cv2.pyrUp(fluid.d.astype('uint8'))))
         ch = cv2.waitKey(1)
         if ch == 27: break
 
