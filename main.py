@@ -63,17 +63,17 @@ def color():
         velocity_right = -15*random()
         velocity_left = 15*random()
         fluid_r.d[cy - w:cy + w, q1x - w:q1x + w] = 200 + 55*random()
-        fluid_r.d = np.clip(fluid_r.d - 1.0, 0, 255)
+        fluid_r.d = np.clip(fluid_r.d - 0.5, 0, 255)
         fluid_r.v[cy - w:cy + w, q1x - w:q1x + w] = [0, velocity_left]
         fluid_r.v[cy - w:cy + w, q3x - w:q3x + w] = [0, velocity_right]
 
         fluid_b.d[cy - w:cy + w, q3x - w:q3x + w] = 200 + 55*random()
-        fluid_b.d = np.clip(fluid_b.d - 1.0, 0, 255)
+        fluid_b.d = np.clip(fluid_b.d - 0.5, 0, 255)
         fluid_b.v[cy - w:cy + w, q1x - w:q1x + w] = [0, velocity_left]
         fluid_b.v[cy - w:cy + w, q3x - w:q3x + w] = [0, velocity_right]
 
         fluid_g.d[cy - w:cy + w, cx - w:cx + w] = 200 + 55*random()
-        fluid_g.d = np.clip(fluid_g.d - 1.0, 0, 255)
+        fluid_g.d = np.clip(fluid_g.d - 0.5, 0, 255)
         fluid_g.v[cy - w:cy + w, q1x - w:q1x + w] = [0, velocity_left]
         fluid_g.v[cy - w:cy + w, q3x - w:q3x + w] = [0, velocity_right]
 
