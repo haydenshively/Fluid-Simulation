@@ -9,8 +9,11 @@ import cv2
 from random import random
 from fluid import Fluid
 
+ix = 0
+iy = 0
+
 def grayscale():
-    fluid = Fluid([128, 64], 0.002, diff = 0.0, visc = 0.0)
+    fluid = Fluid([128, 128], 0.002, diff = 0.0, visc = 0.0)
     # fluid = Fluid(128, 0.002, diff = 0.0001, visc = 0.000005)
 
     cx = fluid.size[1]//2
@@ -18,6 +21,18 @@ def grayscale():
     q1x = cx//2
     q3x = cx + q1x
     w = 4
+
+    cv2.namedWindow('dye')
+    def add_dye(event, x, y, flags, param):
+        global ix, iy
+        if event == cv2.EVENT_MOUSEMOVE:
+            x = x//4
+            y = y//4
+            c = 5
+            fluid.v[y - w:y + w, x - w:x + w] = [c*(y - iy), c*(x - ix)]
+        ix = x
+        iy = y
+    cv2.setMouseCallback('dye', add_dye)
 
     # t = 0
 
@@ -90,4 +105,4 @@ def color():
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    color()
+    grayscale()
